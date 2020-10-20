@@ -1,4 +1,4 @@
-package ru.afanasev.RestCodemark.model.Dto;
+package ru.afanasev.RestCodemark.model.dto;
 
 public class UserWithoutRoleDto {
 

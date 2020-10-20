@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.afanasev.RestCodemark.model.Dto.SuccessDto;
-import ru.afanasev.RestCodemark.model.Dto.UserByIdDto;
-import ru.afanasev.RestCodemark.model.Dto.UserChangeDtoRequest;
-import ru.afanasev.RestCodemark.model.Dto.UserDtoRequest;
-import ru.afanasev.RestCodemark.model.Dto.UserWithoutRoleDto;
+import ru.afanasev.RestCodemark.model.dto.SuccessDto;
+import ru.afanasev.RestCodemark.model.dto.UserByIdDto;
+import ru.afanasev.RestCodemark.model.dto.UserChangeDtoRequest;
+import ru.afanasev.RestCodemark.model.dto.UserDtoRequest;
+import ru.afanasev.RestCodemark.model.dto.UserWithoutRoleDto;
 import ru.afanasev.RestCodemark.service.UserService;
 
 @RestController

@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import ru.afanasev.RestCodemark.model.Role;
 import ru.afanasev.RestCodemark.model.User;
 import ru.afanasev.RestCodemark.model.UserRepository;
-import ru.afanasev.RestCodemark.model.Dto.SuccessDto;
-import ru.afanasev.RestCodemark.model.Dto.SuccessFalseDto;
-import ru.afanasev.RestCodemark.model.Dto.UserByIdDto;
-import ru.afanasev.RestCodemark.model.Dto.UserDtoRequest;
-import ru.afanasev.RestCodemark.model.Dto.UserWithoutRoleDto;
+import ru.afanasev.RestCodemark.model.dto.SuccessDto;
+import ru.afanasev.RestCodemark.model.dto.SuccessFalseDto;
+import ru.afanasev.RestCodemark.model.dto.UserByIdDto;
+import ru.afanasev.RestCodemark.model.dto.UserDtoRequest;
+import ru.afanasev.RestCodemark.model.dto.UserWithoutRoleDto;
 
 @Service
 public class UserServiceImpl implements UserService {

@@ -1,4 +1,4 @@
-package ru.afanasev.RestCodemark.model.Dto;
+package ru.afanasev.RestCodemark.model.dto;
 
 import java.util.HashSet;
 import java.util.Set;
