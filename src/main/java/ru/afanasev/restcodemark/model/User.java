@@ -1,4 +1,4 @@
-package ru.afanasev.RestCodemark.model;
+package ru.afanasev.restcodemark.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -66,5 +66,11 @@ public class User {
 		rolesSet.remove(role);
 		role.getUsersSet().remove(this);
 	}
+
+	public void setRolesSet(Set<Role> rolesSet) {
+		this.rolesSet = rolesSet;
+	}
+
+
 
 }

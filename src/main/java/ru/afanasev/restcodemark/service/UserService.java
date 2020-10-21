@@ -1,11 +1,11 @@
-package ru.afanasev.RestCodemark.service;
+package ru.afanasev.restcodemark.service;
 
 import java.util.List;
 
-import ru.afanasev.RestCodemark.model.dto.SuccessDto;
-import ru.afanasev.RestCodemark.model.dto.UserByIdDto;
-import ru.afanasev.RestCodemark.model.dto.UserDtoRequest;
-import ru.afanasev.RestCodemark.model.dto.UserWithoutRoleDto;
+import ru.afanasev.restcodemark.model.dto.SuccessDto;
+import ru.afanasev.restcodemark.model.dto.UserByIdDto;
+import ru.afanasev.restcodemark.model.dto.UserDtoRequest;
+import ru.afanasev.restcodemark.model.dto.UserWithoutRoleDto;
 
 public interface UserService {
 

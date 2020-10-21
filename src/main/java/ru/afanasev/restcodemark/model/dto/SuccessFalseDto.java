@@ -1,9 +1,9 @@
-package ru.afanasev.RestCodemark.model.dto;
+package ru.afanasev.restcodemark.model.dto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.afanasev.RestCodemark.model.Role;
+import ru.afanasev.restcodemark.model.Role;
 
 public class SuccessFalseDto extends SuccessDto{
 

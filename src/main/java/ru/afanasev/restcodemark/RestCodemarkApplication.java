@@ -1,4 +1,4 @@
-package ru.afanasev.RestCodemark;
+package ru.afanasev.restcodemark;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

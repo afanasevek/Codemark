@@ -1,4 +1,4 @@
-package ru.afanasev.RestCodemark.model;
+package ru.afanasev.restcodemark.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

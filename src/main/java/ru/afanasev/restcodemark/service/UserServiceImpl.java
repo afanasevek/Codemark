@@ -1,6 +1,7 @@
-package ru.afanasev.RestCodemark.service;
+package ru.afanasev.restcodemark.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -10,25 +11,27 @@ import org.aspectj.bridge.MessageWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ru.afanasev.RestCodemark.model.Role;
-import ru.afanasev.RestCodemark.model.User;
-import ru.afanasev.RestCodemark.model.UserRepository;
-import ru.afanasev.RestCodemark.model.dto.SuccessDto;
-import ru.afanasev.RestCodemark.model.dto.SuccessFalseDto;
-import ru.afanasev.RestCodemark.model.dto.UserByIdDto;
-import ru.afanasev.RestCodemark.model.dto.UserDtoRequest;
-import ru.afanasev.RestCodemark.model.dto.UserWithoutRoleDto;
+import ru.afanasev.restcodemark.model.Role;
+import ru.afanasev.restcodemark.model.RoleRepository;
+import ru.afanasev.restcodemark.model.User;
+import ru.afanasev.restcodemark.model.UserRepository;
+import ru.afanasev.restcodemark.model.dto.SuccessDto;
+import ru.afanasev.restcodemark.model.dto.SuccessFalseDto;
+import ru.afanasev.restcodemark.model.dto.UserByIdDto;
+import ru.afanasev.restcodemark.model.dto.UserDtoRequest;
+import ru.afanasev.restcodemark.model.dto.UserWithoutRoleDto;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final Pattern pattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]))");
-
+	private final RoleRepository roleRepository;
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository) {
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
 
 		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
 	}
 
 	@Override
@@ -77,10 +80,15 @@ public class UserServiceImpl implements UserService {
 			user.setLogin(request.getLogin());
 			user.setPassword(request.getPassword());
 			user.setUsername(request.getUsername());
-			request.getRoles().stream().forEach(r -> {
-				Role role = new Role();
-				role.setName(r);
-				user.addRole(role);
+			request.getRoles().forEach(r -> {
+				Optional<Role> existRole = roleRepository.findByName(r);
+				if (existRole.isEmpty()) {
+					Role role = new Role();
+					role.setName(r);
+					user.addRole(role);
+				} else {
+					user.addRole(existRole.get());
+				}
 			});
 			userRepository.save(user);
 			return new SuccessDto();
@@ -115,13 +123,18 @@ public class UserServiceImpl implements UserService {
 				userExists.addError("User not exists");
 				return userExists;
 			}
+			userRepository.deleteById(request.getLogin());
 			findUser.get().setPassword(request.getPassword());
 			findUser.get().setUsername(request.getUsername());
-			request.getRoles().stream().forEach(r -> {
-				Role role = new Role();
-				role.setName(r);
-				findUser.get().addRole(role);
-			});
+			if(!request.getRoles().isEmpty()) {
+				findUser.get().setRolesSet(new HashSet<Role>());
+				request.getRoles().forEach(r -> {
+					Role role = new Role(); 
+					role.setName(r);
+					findUser.get().addRole(role);
+				});
+			}
+			
 			userRepository.save(findUser.get());
 
 			return new SuccessDto();
@@ -149,7 +162,7 @@ public class UserServiceImpl implements UserService {
 		if (request.getUsername().length() == 0) {
 			falseDto.addError("username isnt enouth");
 		}
-		if (pattern.matcher(request.getPassword()).find()) {
+		if (!pattern.matcher(request.getPassword()).find()) {
 			falseDto.addError("password isnt correct");
 		}
 
