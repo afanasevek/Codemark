@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService {
 		UserByIdDto userByIdDto = getUser(login);
 		if (userByIdDto == null) {
 
-			return null;
+			throw new EntityNotFoundException();
 		}
 
 		return userByIdDto;
@@ -107,7 +109,7 @@ public class UserServiceImpl implements UserService {
 	public UserByIdDto deleteUserById(String login) {
 		UserByIdDto userByIdDto = getUser(login);
 		if (userByIdDto == null) {
-			return null;
+			throw new EntityNotFoundException();
 		}
 		userRepository.deleteById(login);
 		return userByIdDto;

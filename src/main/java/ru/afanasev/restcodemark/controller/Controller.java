@@ -25,7 +25,7 @@ import ru.afanasev.restcodemark.service.UserService;
 public class Controller {
 
 	private final UserService userService;
-	
+
 	@Autowired
 	public Controller(UserService userService) {
 
@@ -42,9 +42,7 @@ public class Controller {
 	@GetMapping("{id}")
 	public ResponseEntity<UserByIdDto> getUser(@PathVariable String id) {
 		UserByIdDto user = userService.getUserById(id);
-		if (user == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+
 		return new ResponseEntity<UserByIdDto>(user, HttpStatus.OK);
 
 	}
