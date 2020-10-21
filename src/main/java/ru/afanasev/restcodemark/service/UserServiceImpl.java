@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.regex.Pattern;
 
-import org.aspectj.bridge.MessageWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +25,7 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final Pattern pattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]))");
 	private final RoleRepository roleRepository;
+
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
 
@@ -58,6 +57,7 @@ public class UserServiceImpl implements UserService {
 
 		UserByIdDto userByIdDto = getUser(login);
 		if (userByIdDto == null) {
+
 			return null;
 		}
 
@@ -126,15 +126,15 @@ public class UserServiceImpl implements UserService {
 			userRepository.deleteById(request.getLogin());
 			findUser.get().setPassword(request.getPassword());
 			findUser.get().setUsername(request.getUsername());
-			if(!request.getRoles().isEmpty()) {
+			if (!request.getRoles().isEmpty()) {
 				findUser.get().setRolesSet(new HashSet<Role>());
 				request.getRoles().forEach(r -> {
-					Role role = new Role(); 
+					Role role = new Role();
 					role.setName(r);
 					findUser.get().addRole(role);
 				});
 			}
-			
+
 			userRepository.save(findUser.get());
 
 			return new SuccessDto();

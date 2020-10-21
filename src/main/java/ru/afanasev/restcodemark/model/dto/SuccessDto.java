@@ -12,5 +12,4 @@ public class SuccessDto {
 		this.success = success;
 	}
 
-	
 }

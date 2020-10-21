@@ -1,18 +1,15 @@
 package ru.afanasev.restcodemark.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "users")
@@ -30,6 +27,24 @@ public class User {
 
 	public String getLogin() {
 		return login;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(login, password, username);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(login, other.login) && Objects.equals(password, other.password)
+				&& Objects.equals(username, other.username);
 	}
 
 	public void setLogin(String login) {
@@ -70,7 +85,5 @@ public class User {
 	public void setRolesSet(Set<Role> rolesSet) {
 		this.rolesSet = rolesSet;
 	}
-
-
 
 }

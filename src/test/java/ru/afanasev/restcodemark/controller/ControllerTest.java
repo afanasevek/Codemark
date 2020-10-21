@@ -1,5 +1,6 @@
 package ru.afanasev.restcodemark.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -178,6 +179,13 @@ public class ControllerTest {
 		mocMvc.perform(post("/api/users/add").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objectMapper.writeValueAsString(request))).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(objectMapper.writeValueAsString(trDto)));
+
+		User user = new User();
+		user.setLogin("login");
+		user.setPassword("fdDg45");
+		user.setUsername("user");
+
+		assertEquals(user, userRepository.findById("login").get());
 	}
 
 	@Test
@@ -252,5 +260,16 @@ public class ControllerTest {
 		mocMvc.perform(put("/api/users/change").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objectMapper.writeValueAsString(request))).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(objectMapper.writeValueAsString(trDto)));
+
+		User user2 = new User();
+		user2.setLogin("test2");
+		user2.setPassword("fdDg45");
+		user2.setUsername("user211");
+		Role role2 = new Role();
+		role2.setId(2);
+		role2.setName("user");
+		user2.addRole(role2);
+
+		assertEquals(user2, userRepository.findById("test2").get());
 	}
 }

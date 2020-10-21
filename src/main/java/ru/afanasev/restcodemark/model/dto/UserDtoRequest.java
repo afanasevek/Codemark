@@ -3,7 +3,6 @@ package ru.afanasev.restcodemark.model.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class UserDtoRequest {
 	private String username;
 	private String password;
@@ -47,6 +46,5 @@ public class UserDtoRequest {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
 
 }

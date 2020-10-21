@@ -1,10 +1,9 @@
 package ru.afanasev.restcodemark.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,6 +27,23 @@ public class Role {
 
 	public int getId() {
 		return id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Role other = (Role) obj;
+		return id == other.id && Objects.equals(name, other.name);
 	}
 
 	public void setId(int id) {
@@ -57,9 +73,4 @@ public class Role {
 
 	}
 
-	
-
-
-	
-	
 }
